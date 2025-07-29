@@ -1,0 +1,114 @@
+m/ajax/libs/mathjs/11.11.0/math.min.js"></script>
+<link rel="stylesheet" href="P.css">
+</head>
+
+<body>  <header>
+    <h1>📚 Study Companion</h1>
+    <p>Your Personal Study Partner</p>
+  </header>  <nav>
+    <a href="#video">🎥 Presentation</a>
+    <a href="#solver">🔢 Math Solver</a>
+    <a href="#chemistry">🧪 Chemistry</a>
+    <a href="#physics">⚛️ Physics</a>
+    <a href="#biology">🧬 Biology</a>
+    <a href="#exam">📝 Exam Zone</a>
+  </nav>  <section id="video">
+    <div class="section-title">🎥 Presentation</div>
+    <div class="box video-box">
+      <video width="90%" controls>
+        <source src="presentation.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+  </section>  <section id="solver">
+    <div class="section-title">🔢 Math Solver</div>
+    <div class="box">
+      <label>Enter Problem:</label><br>
+      <input type="text" id="problemInput" placeholder="e.g., 2x + 3 = 7" />
+      <button onclick="solveWithMathJS()">Solve (Offline)</button>
+      <p id="solutionOutput"></p>
+      <div class="solution-feedback">
+        <label>Submit your own solution if AI failed:</label><br>
+        <textarea id="userSolution" placeholder="Explain your solution..."></textarea><br>
+        <button onclick="submitUserSolution()">Submit Feedback</button>
+        <p id="thankYouMsg" style="color: green;"></p>
+      </div>
+    </div>
+  </section>  <section id="chemistry">
+    <div class="section-title">🧪 Chemistry</div>
+    <div class="box">
+      <p>Learn about acids, bases, reactions, and the periodic table.</p>
+      <input type="text" placeholder="e.g., H2 + O2 → ?" />
+    </div>
+  </section>  <section id="physics">
+    <div class="section-title">⚛️ Physics</div>
+    <div class="box">
+      <p>Topics: force, motion, waves, electricity, etc.</p>
+      <input type="text" placeholder="e.g., F = ma. Enter a value to solve" />
+    </div>
+  </section>  <section id="biology">
+    <div class="section-title">🧬 Biology</div>
+    <div class="box">
+      <p>Learn about cells, organs, systems, reproduction and ecosystems.</p>
+      <input type="text" placeholder="Ask a biology-related question..." />
+    </div>
+  </section>  <section id="exam">
+    <div class="section-title">📝 Exam Zone</div>
+    <div class="box">
+      <p>Test your knowledge! Your streak continues when you pass!</p>
+      <button onclick="startExam()">Start Exam</button>
+      <p id="examResult"></p>
+    </div>
+  </section>  <section>
+    <div class="section-title">📞 Support</div>
+    <div class="box">
+      <p>❓ Still stuck? Chat with us on WhatsApp!<br>
+      📞 <a href="https://wa.me/2349131477943" target="_blank">Message us now</a></p>
+    </div>
+  </section>  <section>
+    <div class="streak" id="streakMessage"></div>
+  </section>  <script>
+    function solveWithMathJS() {
+      const input = document.getElementById("problemInput").value;
+      const output = document.getElementById("solutionOutput");
+      try {
+        const result = math.evaluate(input);
+        output.innerText = `Answer: ${result}`;
+      } catch (err) {
+        output.innerText = "Error: Invalid expression or unsupported format.";
+      }
+    }
+
+    function submitUserSolution() {
+      const userSolution = document.getElementById("userSolution").value.trim();
+      const thankYouMsg = document.getElementById("thankYouMsg");
+      if (userSolution) {
+        console.log("User Feedback:", userSolution);
+        thankYouMsg.innerText = "Thanks! Your solution has been submitted.";
+        document.getElementById("userSolution").value = "";
+      } else {
+        thankYouMsg.innerText = "Please write something before submitting.";
+      }
+    }
+
+    function startExam() {
+      const score = Math.floor(Math.random() * 100);
+      document.getElementById("examResult").innerText = `You scored: ${score}%. Keep going!`;
+      updateStreak();
+    }
+
+    function updateStreak() {
+      let streak = parseInt(localStorage.getItem("studyStreak")) || 0;
+      streak += 1;
+      localStorage.setItem("studyStreak", streak);
+      document.getElementById("streakMessage").innerText = `🔥 You're on a ${streak}-day streak! Keep it up!`;
+    }
+
+    window.onload = () => {
+      const streak = localStorage.getItem("studyStreak");
+      if (streak) {
+        document.getElementById("streakMessage").innerText = `🔥 Welcome back! ${streak}-day streak ongoing.`;
+      }
+    };
+  </script></body>
+</html>
