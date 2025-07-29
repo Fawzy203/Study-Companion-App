@@ -1,4 +1,4 @@
-# 📚 Study Companion App
+# 📚 AI helper
 
 This is a Study Companion App built using **HTML**, **CSS**, and a little **JavaScript** (and MathJS).
 
